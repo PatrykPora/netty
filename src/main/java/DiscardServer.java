@@ -56,6 +56,8 @@ public class DiscardServer {
             //bind and start to accept incoming connections
             ChannelFuture f = b.bind(port).sync();
 
+            f.channel().closeFuture().sync();
+
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
@@ -66,8 +68,8 @@ public class DiscardServer {
         int port = 8080;
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
-            new DiscardServer(port).run();
         }
+        new DiscardServer(port).run();
     }
 
 }
